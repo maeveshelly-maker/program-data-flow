@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reserv — Program Data Flow</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f8f8f8; font-family: system-ui, -apple-system, sans-serif; padding: 24px; }
+  h1 { font-size: 20px; margin-bottom: 4px; }
+  p.sub { color: #6b7280; font-size: 13px; margin-bottom: 20px; }
+  .wrap { overflow-x: auto; background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; padding: 8px; }
+  svg { display: block; }
+</style>
+</head>
+<body>
+<h1>Program Data Flow — Entity &amp; Program Lanes</h1>
+<p class="sub">Salesforce is source of truth · Closed Won is the trigger · Data Warehouse is the hub · Updated June 2026</p>
+<div class="wrap">
+<svg viewBox="0 0 1760 760" xmlns="http://www.w3.org/2000/svg" style="min-width:1350px;width:100%;height:auto;">
+  <defs>
+    <marker id="a"  markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5 z" fill="#999"/></marker>
+    <marker id="ag" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5 z" fill="#16a34a"/></marker>
+    <marker id="ar" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5 z" fill="#dc2626"/></marker>
+    <marker id="ab" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5 z" fill="#2563eb"/></marker>
+    <marker id="ap" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5 z" fill="#7c3aed"/></marker>
+  </defs>
+
+  <rect width="1760" height="760" fill="#f8f8f8" rx="12"/>
+
+  <!-- ════ LANE BACKGROUNDS ════ -->
+  <rect x="20" y="56" width="1180" height="190" rx="10" fill="#f0f4ff" stroke="#c7d2fe" stroke-width="1"/>
+  <text x="36" y="80" font-size="12" font-weight="700" fill="#4338ca">ENTITY  (Account object · Carrier / MGA / Paper Company)</text>
+
+  <rect x="20" y="266" width="1180" height="240" rx="10" fill="#eefdf3" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="36" y="290" font-size="12" font-weight="700" fill="#15803d">PROGRAM  (Opportunity object · gets PRG-XXXX)</text>
+
+  <rect x="1220" y="56" width="200" height="660" rx="10" fill="#faf5ff" stroke="#ddd6fe" stroke-width="1"/>
+  <text x="1320" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="#6d28d9">DATA WAREHOUSE</text>
+
+  <rect x="1440" y="56" width="300" height="660" rx="10" fill="#fff" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="1456" y="80" font-size="12" font-weight="700" fill="#374151">END SYSTEMS</text>
+
+  <!-- ════ ENTITY LANE ════ -->
+  <rect x="40" y="120" width="138" height="56" rx="8" fill="#4f46e5"/>
+  <text x="109" y="144" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Entity created</text>
+  <text x="109" y="160" text-anchor="middle" font-size="9" fill="#c7d2fe">Account object in SFDC</text>
+
+  <line x1="178" y1="148" x2="208" y2="148" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="208" y="120" width="148" height="56" rx="8" fill="#4338ca"/>
+  <text x="282" y="142" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">Unique ID assigned</text>
+  <text x="282" y="158" text-anchor="middle" font-size="9" fill="#c7d2fe">auto-number at creation</text>
+
+  <line x1="356" y1="148" x2="386" y2="148" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="386" y="120" width="150" height="56" rx="8" fill="#fff" stroke="#c7d2fe" stroke-width="1.5"/>
+  <text x="461" y="142" text-anchor="middle" font-size="11" font-weight="600" fill="#111">"Is New Account" flag</text>
+  <text x="461" y="158" text-anchor="middle" font-size="9" fill="#6b7280">new SFDC field — to be built</text>
+
+  <line x1="536" y1="148" x2="566" y2="148" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="566" y="120" width="156" height="56" rx="8" fill="#fff" stroke="#c7d2fe" stroke-width="1.5"/>
+  <text x="644" y="142" text-anchor="middle" font-size="11" font-weight="600" fill="#111">Associates with Program</text>
+  <text x="644" y="158" text-anchor="middle" font-size="9" fill="#6b7280">lookup on the Opportunity</text>
+
+  <line x1="644" y1="176" x2="644" y2="330" stroke="#4f46e5" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#ab)"/>
+  <text x="656" y="240" font-size="9" fill="#4f46e5">relationship</text>
+
+  <line x1="722" y1="148" x2="784" y2="148" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="784" y="120" width="156" height="56" rx="8" fill="#fff" stroke="#c7d2fe" stroke-width="1.5"/>
+  <text x="862" y="142" text-anchor="middle" font-size="11" font-weight="600" fill="#111">Waits on Program outcome</text>
+  <text x="862" y="158" text-anchor="middle" font-size="9" fill="#6b7280">moves only if program is won</text>
+
+  <line x1="940" y1="148" x2="976" y2="148" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
+  <polygon points="976,148 1048,108 1120,148 1048,188" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="1048" y="143" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">New entity?</text>
+  <text x="1048" y="158" text-anchor="middle" font-size="8" fill="#b45309">checked at Closed Won</text>
+
+  <line x1="1120" y1="148" x2="1248" y2="148" stroke="#16a34a" stroke-width="2" marker-end="url(#ag)"/>
+  <text x="1156" y="139" font-size="9" font-weight="600" fill="#16a34a">Yes → to DW</text>
+
+  <line x1="1048" y1="188" x2="1048" y2="218" stroke="#6b7280" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="973" y="218" width="150" height="22" rx="5" fill="#fff" stroke="#d1d5db" stroke-width="1"/>
+  <text x="1048" y="233" text-anchor="middle" font-size="9" fill="#6b7280">No → already downstream, skip</text>
+
+  <!-- ════ PROGRAM LANE ════ -->
+  <rect x="50" y="330" width="150" height="56" rx="8" fill="#15803d"/>
+  <text x="125" y="354" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Program created</text>
+  <text x="125" y="370" text-anchor="middle" font-size="9" fill="#bbf7d0">Opportunity object in SFDC</text>
+
+  <line x1="200" y1="358" x2="240" y2="358" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="240" y="330" width="150" height="56" rx="8" fill="#166534"/>
+  <text x="315" y="354" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">PRG-XXXX assigned</text>
+  <text x="315" y="370" text-anchor="middle" font-size="9" fill="#bbf7d0">auto-number at creation</text>
+
+  <line x1="390" y1="358" x2="450" y2="358" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
+
+  <rect x="450" y="330" width="170" height="56" rx="8" fill="#fff" stroke="#bbf7d0" stroke-width="1.5"/>
+  <text x="535" y="352" text-anchor="middle" font-size="11" font-weight="600" fill="#111">Works through stages</text>
+  <text x="535" y="368" text-anchor="middle" font-size="9" fill="#6b7280">entities linked via lookups ↑</text>
+
+  <line x1="620" y1="358" x2="680" y2="358" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
+
+  <polygon points="680,358 760,318 840,358 760,398" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="760" y="353" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">Closed Won?</text>
+  <text x="760" y="368" text-anchor="middle" font-size="8" fill="#b45309">the trigger</text>
+
+  <line x1="760" y1="398" x2="760" y2="440" stroke="#dc2626" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="774" y="424" font-size="9" font-weight="700" fill="#dc2626">No</text>
+  <rect x="700" y="440" width="120" height="44" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="760" y="460" text-anchor="middle" font-size="12" font-weight="700" fill="#dc2626">STOP</text>
+  <text x="760" y="476" text-anchor="middle" font-size="9" fill="#dc2626">stays in SFDC only</text>
+
+  <line x1="840" y1="358" x2="890" y2="358" stroke="#16a34a" stroke-width="2" marker-end="url(#ag)"/>
+  <text x="864" y="349" text-anchor="middle" font-size="9" font-weight="600" fill="#16a34a">Yes</text>
+
+  <rect x="890" y="330" width="160" height="56" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="970" y="352" text-anchor="middle" font-size="12" font-weight="700" fill="#16a34a">CW trigger fires</text>
+  <text x="970" y="368" text-anchor="middle" font-size="9" fill="#166534">program + new entities move</text>
+
+  <line x1="970" y1="330" x2="970" y2="188" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="982" y="260" font-size="9" fill="#16a34a">releases entity check ↑</text>
+
+  <line x1="1050" y1="358" x2="1248" y2="358" stroke="#16a34a" stroke-width="2" marker-end="url(#ag)"/>
+  <text x="1140" y="349" font-size="9" font-weight="600" fill="#16a34a">to DW</text>
+
+  <rect x="1060" y="380" width="150" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="1135" y="397" text-anchor="middle" font-size="9" font-weight="600" fill="#dc2626">Sync error → Error Log + Alert</text>
+  <text x="1135" y="411" text-anchor="middle" font-size="8" fill="#dc2626">owner TBD</text>
+  <line x1="1135" y1="380" x2="1135" y2="360" stroke="#dc2626" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- ════ DATA WAREHOUSE HUB ════ -->
+  <rect x="1248" y="220" width="144" height="180" rx="10" fill="#7c3aed"/>
+  <text x="1320" y="290" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Data</text>
+  <text x="1320" y="308" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Warehouse</text>
+  <text x="1320" y="332" text-anchor="middle" font-size="9" fill="#ddd6fe">canonical store</text>
+  <text x="1320" y="346" text-anchor="middle" font-size="9" fill="#ddd6fe">entities + programs land first</text>
+  <text x="1320" y="360" text-anchor="middle" font-size="9" fill="#ddd6fe">then fan out ↓</text>
+
+  <polyline points="1248,148 1320,148 1320,220" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#ag)"/>
+
+  <line x1="1392" y1="260" x2="1480" y2="180" stroke="#7c3aed" stroke-width="2" marker-end="url(#ap)"/>
+  <line x1="1392" y1="310" x2="1480" y2="330" stroke="#7c3aed" stroke-width="2" marker-end="url(#ap)"/>
+  <line x1="1392" y1="360" x2="1480" y2="460" stroke="#7c3aed" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#ap)"/>
+
+  <text x="1436" y="208" font-size="9" fill="#7c3aed">create</text>
+  <text x="1436" y="312" font-size="9" fill="#7c3aed">create</text>
+  <text x="1430" y="420" font-size="9" fill="#9ca3af">TBC</text>
+
+  <!-- ════ END SYSTEMS ════ -->
+  <rect x="1480" y="152" width="150" height="56" rx="8" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="1555" y="175" text-anchor="middle" font-size="12" font-weight="600" fill="#111">Notion</text>
+  <text x="1555" y="192" text-anchor="middle" font-size="9" fill="#555">AM · created from DW</text>
+
+  <rect x="1480" y="302" width="150" height="56" rx="8" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="1555" y="325" text-anchor="middle" font-size="12" font-weight="600" fill="#111">Excel</text>
+  <text x="1555" y="342" text-anchor="middle" font-size="9" fill="#555">Revenue Forecast · from DW</text>
+
+  <rect x="1480" y="432" width="150" height="56" rx="8" fill="#fff" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="1555" y="455" text-anchor="middle" font-size="12" font-weight="600" fill="#6b7280">TBC system</text>
+  <text x="1555" y="472" text-anchor="middle" font-size="9" fill="#9ca3af">Finance · to be confirmed</text>
+
+  <rect x="1480" y="520" width="240" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="1600" y="540" text-anchor="middle" font-size="10" font-weight="600" fill="#1d4ed8">If record exists → relationship map only</text>
+  <text x="1600" y="556" text-anchor="middle" font-size="9" fill="#3b82f6">full updates TBD · needs AM team in SFDC</text>
+  <text x="1600" y="570" text-anchor="middle" font-size="9" fill="#3b82f6">keyed on PRG-XXXX / entity ID</text>
+
+  <!-- ════ RECON FOOTER ════ -->
+  <rect x="1248" y="540" width="180" height="160" rx="8" fill="#f3f4f6" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="1338" y="566" text-anchor="middle" font-size="11" font-weight="700" fill="#111">Monthly Recon Sweep</text>
+  <text x="1338" y="584" text-anchor="middle" font-size="9" fill="#555">compare IDs: SFDC · DW ·</text>
+  <text x="1338" y="597" text-anchor="middle" font-size="9" fill="#555">Notion · Excel · Finance</text>
+
+  <line x1="1338" y1="606" x2="1338" y2="624" stroke="#999" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="1258" y="626" width="160" height="44" rx="8" fill="#16a34a"/>
+  <text x="1338" y="645" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">Google Sheet report</text>
+  <text x="1338" y="660" text-anchor="middle" font-size="9" fill="#bbf7d0">→ monthly sync meeting</text>
+
+  <text x="1338" y="688" text-anchor="middle" font-size="8" fill="#9ca3af">closed won only · lost/dead excluded</text>
+
+  <line x1="1320" y1="400" x2="1320" y2="540" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+
+</svg>
+</div>
+</body>
+</html>
