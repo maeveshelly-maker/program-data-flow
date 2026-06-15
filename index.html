@@ -17,7 +17,7 @@
 <h1>Program Data Flow — Entity &amp; Program Lanes</h1>
 <p class="sub">Salesforce is source of truth · Closed Won is the trigger · Data Warehouse is the hub · Updated June 2026</p>
 <div class="wrap">
-<svg viewBox="0 0 1760 1100" xmlns="http://www.w3.org/2000/svg" style="min-width:1350px;width:100%;height:auto;">
+<svg viewBox="0 0 1760 1050" xmlns="http://www.w3.org/2000/svg" style="min-width:1350px;width:100%;height:auto;">
   <defs>
     <marker id="a"  markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5 z" fill="#999"/></marker>
     <marker id="ag" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5 z" fill="#16a34a"/></marker>
@@ -26,7 +26,7 @@
     <marker id="ap" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5 z" fill="#7c3aed"/></marker>
   </defs>
 
-  <rect width="1760" height="1100" fill="#f8f8f8" rx="12"/>
+  <rect width="1760" height="1050" fill="#f8f8f8" rx="12"/>
 
   <!-- ════ LANE BACKGROUNDS ════ -->
   <rect x="20" y="56" width="1180" height="190" rx="10" fill="#f0f4ff" stroke="#c7d2fe" stroke-width="1"/>
@@ -184,81 +184,52 @@
   <line x1="1320" y1="400" x2="1320" y2="540" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
 
   <!-- ════════════ RELATIONSHIP CHANGES SECTION ════════════ -->
-  <rect x="20" y="740" width="1720" height="340" rx="10" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
-  <text x="36" y="766" font-size="12" font-weight="700" fill="#9a3412">RELATIONSHIP CHANGES  (post-launch · e.g. program switches carrier)</text>
+  <rect x="20" y="740" width="1720" height="290" rx="10" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/>
+  <text x="36" y="766" font-size="12" font-weight="700" fill="#9a3412">RELATIONSHIP CHANGES  (post-launch · e.g. program switches carrier, new MGA, paper co swap)</text>
 
   <!-- Trigger -->
-  <rect x="40" y="850" width="160" height="60" rx="8" fill="#ea580c"/>
-  <text x="120" y="874" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Relationship changes</text>
-  <text x="120" y="892" text-anchor="middle" font-size="9" fill="#fed7aa">e.g. program switches carrier,</text>
-  <text x="120" y="904" text-anchor="middle" font-size="9" fill="#fed7aa">new MGA added, paper co swap</text>
+  <rect x="40" y="838" width="170" height="60" rx="8" fill="#ea580c"/>
+  <text x="125" y="862" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Relationship changes</text>
+  <text x="125" y="880" text-anchor="middle" font-size="9" fill="#fed7aa">any entity link on a live program</text>
+  <text x="125" y="892" text-anchor="middle" font-size="9" fill="#fed7aa">carrier · MGA · paper co</text>
 
-  <line x1="200" y1="880" x2="250" y2="880" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="210" y1="868" x2="270" y2="868" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
 
-  <!-- Decision: which relationship? -->
-  <polygon points="250,880 350,830 450,880 350,930" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="350" y="875" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">Which relationship?</text>
-  <text x="350" y="892" text-anchor="middle" font-size="8" fill="#b45309">determines who owns the update</text>
+  <!-- AM team owns it, in SFDC -->
+  <rect x="270" y="838" width="210" height="60" rx="8" fill="#0891b2"/>
+  <text x="375" y="862" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">AM team updates in SFDC</text>
+  <text x="375" y="880" text-anchor="middle" font-size="9" fill="#cffafe">ALL relationship changes — not BD</text>
+  <text x="375" y="892" text-anchor="middle" font-size="9" fill="#cffafe">single owner · single system</text>
 
-  <!-- Carrier / MGA branch (up) -->
-  <line x1="350" y1="830" x2="350" y2="800" stroke="#2563eb" stroke-width="2"/>
-  <line x1="350" y1="800" x2="500" y2="800" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
-  <text x="425" y="791" text-anchor="middle" font-size="9" font-weight="600" fill="#2563eb">Carrier or MGA</text>
+  <!-- prerequisite callout -->
+  <rect x="270" y="912" width="210" height="40" rx="6" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="375" y="929" text-anchor="middle" font-size="10" font-weight="700" fill="#0e7490">⚑ REQUIRES: AM team in SFDC</text>
+  <text x="375" y="943" text-anchor="middle" font-size="9" fill="#0891b2">the business case for this project</text>
+  <line x1="375" y1="912" x2="375" y2="898" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="3,2"/>
 
-  <rect x="500" y="772" width="180" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="590" y="794" text-anchor="middle" font-size="11" font-weight="700" fill="#1d4ed8">BD team updates in SFDC</text>
-  <text x="590" y="810" text-anchor="middle" font-size="9" fill="#3b82f6">at the start · lookup on the Oppty</text>
+  <line x1="480" y1="868" x2="540" y2="868" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
 
-  <line x1="680" y1="800" x2="740" y2="800" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
+  <!-- Syncs via DW -->
+  <rect x="540" y="838" width="190" height="60" rx="8" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="635" y="862" text-anchor="middle" font-size="11" font-weight="600" fill="#111">Change syncs via DW</text>
+  <text x="635" y="880" text-anchor="middle" font-size="9" fill="#6b7280">same pipe as the creation flow ↑</text>
+  <text x="635" y="892" text-anchor="middle" font-size="9" fill="#6b7280">SFDC stays source of truth</text>
 
-  <rect x="740" y="772" width="180" height="56" rx="8" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/>
-  <text x="830" y="794" text-anchor="middle" font-size="11" font-weight="600" fill="#111">Change syncs via DW</text>
-  <text x="830" y="810" text-anchor="middle" font-size="9" fill="#6b7280">same pipe as creation flow ↑</text>
+  <line x1="730" y1="868" x2="790" y2="868" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
 
-  <line x1="920" y1="800" x2="980" y2="800" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
+  <!-- Downstream re-mapped -->
+  <rect x="790" y="838" width="200" height="60" rx="8" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="890" y="862" text-anchor="middle" font-size="11" font-weight="600" fill="#111">Downstream re-mapped</text>
+  <text x="890" y="880" text-anchor="middle" font-size="9" fill="#6b7280">Notion · Excel · Finance</text>
+  <text x="890" y="892" text-anchor="middle" font-size="9" fill="#6b7280">reflect the new link</text>
 
-  <rect x="980" y="772" width="190" height="56" rx="8" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/>
-  <text x="1075" y="794" text-anchor="middle" font-size="11" font-weight="600" fill="#111">Downstream re-mapped</text>
-  <text x="1075" y="810" text-anchor="middle" font-size="9" fill="#6b7280">Notion · Excel · Finance reflect new link</text>
+  <line x1="990" y1="868" x2="1050" y2="868" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
 
-  <!-- All other relationships branch (down) -->
-  <line x1="350" y1="930" x2="350" y2="960" stroke="#7c3aed" stroke-width="2"/>
-  <line x1="350" y1="960" x2="500" y2="960" stroke="#7c3aed" stroke-width="2" marker-end="url(#ap)"/>
-  <text x="425" y="951" text-anchor="middle" font-size="9" font-weight="600" fill="#7c3aed">All other relationships</text>
-
-  <rect x="500" y="932" width="180" height="56" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="590" y="954" text-anchor="middle" font-size="11" font-weight="700" fill="#6d28d9">Finance side maps it</text>
-  <text x="590" y="970" text-anchor="middle" font-size="9" fill="#8b5cf6">not BD · happens downstream of SFDC</text>
-
-  <line x1="680" y1="960" x2="740" y2="960" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
-
-  <!-- Decision: feed back to SFDC? -->
-  <polygon points="740,960 830,915 920,960 830,1005" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-  <text x="830" y="955" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">Feed back to SFDC?</text>
-  <text x="830" y="972" text-anchor="middle" font-size="8" fill="#b45309">open question · TBD</text>
-
-  <!-- Maybe yes -->
-  <line x1="920" y1="960" x2="980" y2="960" stroke="#16a34a" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#ag)"/>
-  <text x="950" y="951" text-anchor="middle" font-size="9" fill="#16a34a">maybe</text>
-  <rect x="980" y="932" width="190" height="56" rx="8" fill="#fff" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="5,3"/>
-  <text x="1075" y="954" text-anchor="middle" font-size="11" font-weight="600" fill="#166534">Write-back to SFDC</text>
-  <text x="1075" y="970" text-anchor="middle" font-size="9" fill="#16a34a">keeps SFDC the full source of truth</text>
-
-  <!-- Maybe no -->
-  <line x1="830" y1="1005" x2="830" y2="1030" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#a)"/>
-  <rect x="730" y="1030" width="200" height="36" rx="6" fill="#fff" stroke="#d1d5db" stroke-width="1"/>
-  <text x="830" y="1046" text-anchor="middle" font-size="9" fill="#6b7280">or stays Finance-side only —</text>
-  <text x="830" y="1059" text-anchor="middle" font-size="9" fill="#6b7280">SFDC source of truth for IDs, not all relationships</text>
-
-  <!-- Recon catches drift either way -->
-  <rect x="1240" y="900" width="220" height="64" rx="8" fill="#f3f4f6" stroke="#e5e7eb" stroke-width="1"/>
-  <text x="1350" y="924" text-anchor="middle" font-size="11" font-weight="700" fill="#111">Recon sweep catches drift</text>
-  <text x="1350" y="940" text-anchor="middle" font-size="9" fill="#555">either way, relationship mismatches</text>
-  <text x="1350" y="953" text-anchor="middle" font-size="9" fill="#555">surface in the monthly Google Sheet</text>
-
-  <line x1="1170" y1="800" x2="1350" y2="800" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
-  <line x1="1350" y1="800" x2="1350" y2="900" stroke="#999" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#a)"/>
-  <line x1="1170" y1="960" x2="1240" y2="930" stroke="#999" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#a)"/>
+  <!-- Recon catches drift -->
+  <rect x="1050" y="838" width="220" height="60" rx="8" fill="#f3f4f6" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="1160" y="862" text-anchor="middle" font-size="11" font-weight="700" fill="#111">Recon sweep catches drift</text>
+  <text x="1160" y="880" text-anchor="middle" font-size="9" fill="#555">relationship mismatches surface</text>
+  <text x="1160" y="892" text-anchor="middle" font-size="9" fill="#555">in the monthly Google Sheet</text>
 
 </svg>
 </div>
