@@ -201,19 +201,37 @@
   <text x="375" y="880" text-anchor="middle" font-size="9" fill="#cffafe">ALL relationship changes — not BD</text>
   <text x="375" y="892" text-anchor="middle" font-size="9" fill="#cffafe">single owner · single system</text>
 
+  <!-- effective-date capture callout (above the AM box) -->
+  <rect x="250" y="772" width="250" height="48" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="375" y="790" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">🕑 Capture EFFECTIVE DATE of change</text>
+  <text x="375" y="803" text-anchor="middle" font-size="8.5" fill="#b45309">when the carrier actually switched — not just</text>
+  <text x="375" y="814" text-anchor="middle" font-size="8.5" fill="#b45309">the system edit time. Old link stays history-dated.</text>
+  <line x1="375" y1="820" x2="375" y2="838" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#a)"/>
+
   <!-- prerequisite callout -->
   <rect x="270" y="912" width="210" height="40" rx="6" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="5,3"/>
   <text x="375" y="929" text-anchor="middle" font-size="10" font-weight="700" fill="#0e7490">⚑ REQUIRES: AM team in SFDC</text>
   <text x="375" y="943" text-anchor="middle" font-size="9" fill="#0891b2">the business case for this project</text>
   <line x1="375" y1="912" x2="375" y2="898" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="3,2"/>
 
+  <!-- CURRENT STATE GAP -->
+  <rect x="1300" y="838" width="420" height="170" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="1320" y="862" font-size="11" font-weight="700" fill="#b91c1c">⚠ CURRENT STATE — the gap</text>
+  <text x="1320" y="886" font-size="10" fill="#7f1d1d">AM team is NOT in Salesforce today.</text>
+  <text x="1320" y="906" font-size="10" fill="#7f1d1d">So relationship changes have no clean owner —</text>
+  <text x="1320" y="922" font-size="10" fill="#7f1d1d">they get missed, done inconsistently, or live</text>
+  <text x="1320" y="938" font-size="10" fill="#7f1d1d">only in AM's tools and never reach SFDC.</text>
+  <text x="1320" y="962" font-size="10" font-weight="700" fill="#b91c1c">This drift is the problem this project solves.</text>
+  <text x="1320" y="984" font-size="9" fill="#991b1b">Unblock = get AM into SFDC. Until then the recon</text>
+  <text x="1320" y="998" font-size="9" fill="#991b1b">sweep is the only safety net catching the drift.</text>
+
   <line x1="480" y1="868" x2="540" y2="868" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
 
   <!-- Syncs via DW -->
   <rect x="540" y="838" width="190" height="60" rx="8" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/>
-  <text x="635" y="862" text-anchor="middle" font-size="11" font-weight="600" fill="#111">Change syncs via DW</text>
-  <text x="635" y="880" text-anchor="middle" font-size="9" fill="#6b7280">same pipe as the creation flow ↑</text>
-  <text x="635" y="892" text-anchor="middle" font-size="9" fill="#6b7280">SFDC stays source of truth</text>
+  <text x="635" y="862" text-anchor="middle" font-size="11" font-weight="600" fill="#111">DW keeps dated history</text>
+  <text x="635" y="880" text-anchor="middle" font-size="9" fill="#6b7280">effective-dated rows · full hierarchy</text>
+  <text x="635" y="892" text-anchor="middle" font-size="9" fill="#6b7280">timeline preserved, not overwritten</text>
 
   <line x1="730" y1="868" x2="790" y2="868" stroke="#999" stroke-width="2" marker-end="url(#a)"/>
 
